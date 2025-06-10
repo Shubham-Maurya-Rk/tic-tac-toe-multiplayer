@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: samurai;
-  src: url(./src/assets/fonts/SamuraiBlast.woff)
+  src: url(/fonts/SamuraiBlast.woff)
 }
 
 body,
