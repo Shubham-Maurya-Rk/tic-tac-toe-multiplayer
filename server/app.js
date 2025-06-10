@@ -17,7 +17,7 @@ const port = process.env.PORT;
 
 const io = require('socket.io')(server, {
     cors: {
-        origin: 'http://localhost:5173',
+        origin: process.env.FRONTEND_URL,
         methods: ['GET', 'POST']
     }
 });
