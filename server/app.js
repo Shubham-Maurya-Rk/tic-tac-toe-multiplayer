@@ -15,14 +15,20 @@ connect();
 const server = http.createServer(app);
 const port = process.env.PORT;
 
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
 const io = require('socket.io')(server, {
     cors: {
         origin: process.env.FRONTEND_URL,
-        methods: ['GET', 'POST']
+        methods: ['GET', 'POST'],
+        credentials: true
     }
 });
 
-app.use(cors());
 app.use(express.json());
 app.get('/', (req, res) => {
     res.send('Hare Krsna')
