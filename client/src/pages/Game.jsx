@@ -186,7 +186,7 @@ const Game = () => {
           <span className='font-extrabold text-[4em] text-yellow-500 leading-[0]'>o</span>
         </div>
       </div>
-      <div className={`${validateTurn() && moveState ? '' : 'pointer-events-none'} h-[50%] flex justify-center`}>
+      <div className={`${validateTurn() && moveState.current ? '' : 'pointer-events-none'} h-[50%] flex justify-center`}>
         <div className='bg-[#6344d2fa] h-[90vw] w-[90vw] rounded-2xl justify-around flex flex-wrap items-center'>
           {
             toArray().map((elem, i) => {
