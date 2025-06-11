@@ -25,6 +25,7 @@ const Game = () => {
   const [showroomDetails, setshowroomDetails] = useState(false)
   const [showConfirmDialog, setshowConfirmDialog] = useState('')
   const [showRounds, setshowRounds] = useState(true)
+  const moveState = useRef(true)
   const [msgState, setmsgState] = useState({
     name: "",
     msg: ""
@@ -56,6 +57,7 @@ const Game = () => {
     socket.on('room-details', ({ data, roomSize }) => {
       setroom({ ...data });
       setspectators(roomSize > 1 ? roomSize - 2 : 0);
+      moveState.current = true
     });
 
     socket.on('winner', (winner) => {
@@ -134,6 +136,7 @@ const Game = () => {
   const move = (idx) => {
     if (!room.players.o) return toast.error("Wait for other player to join");
     if (!validateTurn()) return toast.error("Wait for your turn");
+    moveState.current = false
     const i = Math.floor(idx / 3);
     const j = Math.floor(idx % 3);
     socket.emit('move', { roomId: room._id, i, j, player: room.turn })
@@ -183,7 +186,7 @@ const Game = () => {
           <span className='font-extrabold text-[4em] text-yellow-500 leading-[0]'>o</span>
         </div>
       </div>
-      <div className={`${validateTurn() ? '' : 'pointer-events-none'} h-[50%] flex justify-center`}>
+      <div className={`${validateTurn() && moveState ? '' : 'pointer-events-none'} h-[50%] flex justify-center`}>
         <div className='bg-[#6344d2fa] h-[90vw] w-[90vw] rounded-2xl justify-around flex flex-wrap items-center'>
           {
             toArray().map((elem, i) => {
